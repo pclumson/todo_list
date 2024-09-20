@@ -30,28 +30,43 @@ const TodoList = () => {
 
 
   
-
   return (
     <>
       <div className="todo-container">
-        <h1 className="title">My Todo List</h1>
-        <div className="input-container">
-          <input
+          <h1 className="title">My Todo List</h1>
+
+          <div className="input-container">
+            <input
             type="text"
             className="heading-input"
             placeholder="Enter heading"
-
             value={headingInput}
-
-            onChange={(e) => {setHeadingInput(e.target.value);}} // Add onChange event handler to update headingInput state
-          />
-
+            onChange={(e) => setHeadingInput(e.target.value)}
+            />
           <button className="add-list-button" onClick={handleAddTodo}>Add Heading</button>
+      </div>
+
+      </div>
+
+      <div className="todo_main">
+        {todos.map((todo, index) => (
+          <div key={index} className="todo-card">
+          <div className="heading_todo">
+          <h3>{todo.heading}</h3>
+          <button className="delete-button-heading" onClick={() => handleDeleteTodo(index)}>Delete Heading</button>
+          </div>
+          <ul>
+          {todo.lists.map((list, listIndex) => (
+            <li key={listIndex} className='todo_inside_list'>
+            <p>{list}</p>
+            </li>
+          ))}
+          </ul>
+
 
         </div>
-      </div>
-      <div className="todo_main">
-        
+
+      ))}
       </div>
     </>
   );
@@ -59,7 +74,16 @@ const TodoList = () => {
 
 export default TodoList;
 
-
+/*
+Mapping over Todos Array: todos.map((todo, index) => ...): Maps over the todos array, which contains todo items.The map() function executes the
+specified function for each todo item in the array.
+Rendering Todo Item: <div key={index} className="todo-card"> ... </div>: For each todo item, a div element with the class todo-card is rendered. The key
+attribute is set to index to identify each to-do item within the list uniquely.
+Displaying Todo Heading: <h3>{todo.heading}</h3>: Within each todo-card div, the heading of the current todo item is displayed using an <h3> element. The
+heading text is retrieved from the heading property of the todo object.
+Deleting Todo Item: <button className="delete-button-heading" onClick={() => handleDeleteTodo(index)}>Delete Heading </button>: Each todo item is
+accompanied by a "Delete Heading" button. When clicked, this button triggers the handleDeleteTodo function, passing the index of the current todo item as an
+argument. The index allows the function to identify and delete the corresponding todo item from the todos array.*/
 
 
 
