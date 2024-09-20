@@ -22,11 +22,29 @@ const TodoList = () => {
 
 
   const handleAddTodo = () => {
+
     if (headingInput.trim() !== '') {
+
       setTodos([...todos, { heading: headingInput, lists: [] }]);
       setHeadingInput('');
     }
   };
+
+  const handleAddList = (index) => {
+
+    if (listInputs[index] && listInputs[index].trim() !== '') {
+      const newTodos = [...todos];
+      newTodos[index].lists.push(listInputs[index]);
+      setTodos(newTodos);
+      setListInputs({ ...listInputs, [index]: '' });
+    }
+  };
+
+  const handleListInputChange = (index, value) => {
+
+    setListInputs({ ...listInputs, [index]: value });
+  };
+
 
 
   
@@ -62,6 +80,19 @@ const TodoList = () => {
             </li>
           ))}
           </ul>
+            <div className='add_list'>
+
+              <input
+              type="text"
+              className="list-input"
+              placeholder="Add List"
+              value={listInputs[index] || ''}
+              onChange={(e) => handleListInputChange(index, e.target.value)}
+              />
+
+            <button className="add-list-button" onClick={() => handleAddList(index)}>Add List</button>
+
+            </div>
 
 
         </div>
